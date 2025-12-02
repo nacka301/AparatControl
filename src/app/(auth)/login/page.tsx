@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "@/components/auth/LoginForm";
+import SupportCallout from "@/components/auth/SupportCallout";
 
 const heroImage = "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1400&q=80";
 
@@ -19,12 +20,15 @@ export default function LoginPage() {
 
           <LoginForm />
 
-          <p className="text-center text-sm text-muted-foreground">
-            Nemaš račun? {" "}
-            <Link className="font-medium text-foreground underline-offset-4 hover:underline" href="/register">
-              Zatraži pristup
-            </Link>
-          </p>
+          <div className="space-y-3">
+            <p className="text-center text-sm text-muted-foreground">
+              Nemaš račun? {" "}
+              <Link className="font-medium text-foreground underline-offset-4 hover:underline" href="/register">
+                Zatraži pristup
+              </Link>
+            </p>
+            <SupportCallout />
+          </div>
         </div>
       </div>
 
