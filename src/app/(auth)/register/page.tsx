@@ -1,13 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import RegisterForm from "@/components/auth/RegisterForm";
 import SupportCallout from "@/components/auth/SupportCallout";
+import SeoJsonLd from "@/components/SeoJsonLd";
 
 const heroImage = "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=80";
+
+export const metadata: Metadata = {
+  title: "Registracija",
+  description: "Kreiraj Aparthost Control račun za owner ili staff tim članove.",
+  alternates: {
+    canonical: "/register",
+  },
+  openGraph: {
+    title: "Registracija | Aparthost Control",
+    url: "/register",
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "RegisterAction",
+  name: "Registracija aparthost članova",
+  target: {
+    "@type": "EntryPoint",
+    urlTemplate: "https://aparat-control.vercel.app/register",
+    actionPlatform: ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"],
+  },
+  result: {
+    "@type": "Organization",
+    name: "Aparthost Control",
+  },
+};
 
 export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-gray-50 lg:grid lg:grid-cols-[1.1fr_1fr]">
+      <SeoJsonLd id="register-ld" data={structuredData} />
       <div className="relative hidden overflow-hidden lg:block">
         <Image
           src={heroImage}

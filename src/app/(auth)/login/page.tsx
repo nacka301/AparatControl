@@ -1,13 +1,47 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import LoginForm from "@/components/auth/LoginForm";
 import SupportCallout from "@/components/auth/SupportCallout";
+import SeoJsonLd from "@/components/SeoJsonLd";
 
 const heroImage = "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=1400&q=80";
+
+export const metadata: Metadata = {
+  title: "Prijava",
+  description: "Prijavi se u Aparthost Control kako bi upravljao apartmanima, zadacima i inventarom.",
+  alternates: {
+    canonical: "/login",
+  },
+  openGraph: {
+    title: "Prijava | Aparthost Control",
+    url: "/login",
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Aparthost Control",
+  applicationCategory: "Hospitality",
+  operatingSystem: "Web",
+  url: "https://aparat-control.vercel.app/login",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "EUR",
+    description: "Pristup za owner i staff članove aparthost tima",
+  },
+  potentialAction: {
+    "@type": "LoginAction",
+    target: "https://aparat-control.vercel.app/login",
+  },
+};
 
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-50 lg:grid lg:grid-cols-[1fr_1.1fr]">
+      <SeoJsonLd id="login-ld" data={structuredData} />
       <div className="flex items-center justify-center px-6 py-12 sm:px-10">
         <div className="mx-auto w-full max-w-md space-y-6">
           <div className="space-y-2 text-center">
