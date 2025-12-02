@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 20% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 210 78% 56%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 213 27% 84%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 214 32% 91%;
+  --muted-foreground: 222 47% 11%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214 15% 83%;
+  --input: 214 31% 91%;
+  --ring: 210 78% 56%;
+  --radius: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 78% 56%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 219 15% 35%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 219 15% 35%;
+    --muted-foreground: 214 20% 78%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 219 19% 25%;
+    --ring: 210 78% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01" on, "ss02" on;
+  }
+}
+
+.glass-panel {
+  @apply bg-white/80 shadow-lg ring-1 ring-black/5 backdrop-blur;
+}
