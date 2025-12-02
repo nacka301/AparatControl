@@ -45,3 +45,52 @@ export async function requireRole(role: UserRole) {
 
   return profile;
 }
+
+type ApiProfileResult =
+  | { profile: Awaited<ReturnType<typeof getProfile>> }
+  | { error: string; status: number };
+
+async function fetchProfileOnce() {
+  const supabase = createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const { data } = await supabase
+    .from("users")
+    .select("full_name, role")
+    .eq("id", user.id)
+    .single();
+
+  return {
+    id: user.id,
+    email: user.email,
+    full_name: data?.full_name ?? user.email ?? "Korisnik",
+    role: (data?.role as UserRole | null) ?? "staff",
+  };
+}
+
+export async function getApiProfile(): Promise<Awaited<ReturnType<typeof fetchProfileOnce>>> {
+  return fetchProfileOnce();
+}
+
+export async function assertApiRole(required?: UserRole | UserRole[]): Promise<ApiProfileResult> {
+  const profile = await fetchProfileOnce();
+
+  if (!profile) {
+    return { error: "Nije prijavljen", status: 401 };
+  }
+
+  if (required) {
+    const roles = Array.isArray(required) ? required : [required];
+    if (!roles.includes(profile.role)) {
+      return { error: "Nedovoljno ovlasti", status: 403 };
+    }
+  }
+
+  return { profile };
+}

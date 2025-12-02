@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Upravljanje apartmanima, inventarom i zadacima za owner i staff timove",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{

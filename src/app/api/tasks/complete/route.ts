@@ -1,12 +1,18 @@
 import { Buffer } from "node:buffer";
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { assertApiRole } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 const BUCKET = process.env.SUPABASE_STORAGE_BUCKET ?? "issues";
 
 export async function POST(request: Request) {
+  const auth = await assertApiRole(["owner", "staff"]);
+  if (!("profile" in auth)) {
+    return NextResponse.json({ message: auth.error }, { status: auth.status });
+  }
+
   const formData = await request.formData();
   const taskId = formData.get("taskId");
 
